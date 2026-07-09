@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conver Media | Luxury Brand Perception</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #040603;
+            color: #dae6d9;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* High-end Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Entrance for Hero */
+        .entrance-1 { transition-delay: 0.2s; }
+        .entrance-2 { transition-delay: 0.5s; }
+        .entrance-3 { transition-delay: 0.8s; }
+
+        /* Breath Animation for Crest */
+        @keyframes subtle-breath {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-breath {
+            animation: subtle-breath 18s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Accessibility: Prefers Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .animate-breath {
+                animation: none !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Custom selection color */
+        ::selection {
+            background: #4a473d;
+            color: #ffffff;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow:hover {
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            transform: scale(1.02);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "surface-container": "#18221a",
+                        "inverse-on-surface": "#29332a",
+                        "on-primary-fixed-variant": "#4a473d",
+                        "on-surface-variant": "#cbc6bc",
+                        "on-secondary-fixed-variant": "#4b463b",
+                        "primary-fixed-dim": "#ccc6b9",
+                        "tertiary-fixed-dim": "#cec0eb",
+                        "error-container": "#93000a",
+                        "on-secondary": "#343025",
+                        "surface": "#040603",
+                        "surface-container-lowest": "#050806",
+                        "on-tertiary-container": "#6a5e84",
+                        "surface-dim": "#040603",
+                        "on-secondary-container": "#bfb8a9",
+                        "on-primary-container": "#686459",
+                        "surface-container-high": "#232c24",
+                        "surface-variant": "#2d372f",
+                        "on-primary-fixed": "#1e1b13",
+                        "primary-container": "#e9e2d4",
+                        "secondary-container": "#4d493d",
+                        "tertiary": "#ffffff",
+                        "tertiary-fixed": "#e9ddff",
+                        "primary-fixed": "#e9e2d4",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#141e16",
+                        "surface-container-highest": "#2d372f",
+                        "outline": "#959087",
+                        "secondary-fixed-dim": "#cdc6b6",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#eae2d2",
+                        "on-secondary-fixed": "#1f1b12",
+                        "surface-tint": "#ccc6b9",
+                        "inverse-primary": "#625e53",
+                        "on-tertiary": "#352b4d",
+                        "on-surface": "#dae6d9",
+                        "inverse-surface": "#dae6d9",
+                        "on-tertiary-fixed": "#201637",
+                        "on-background": "#dae6d9",
+                        "on-primary": "#333027",
+                        "background": "#040603",
+                        "primary": "#ffffff",
+                        "secondary": "#cdc6b6",
+                        "outline-variant": "#4a473f",
+                        "tertiary-container": "#e9ddff",
+                        "surface-bright": "#323c33",
+                        "on-tertiary-fixed-variant": "#4c4165"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "edge-margin-desktop": "80px",
+                        "gutter": "24px",
+                        "stack-gap": "32px",
+                        "grid-columns": "12",
+                        "section-gap": "160px",
+                        "edge-margin-mobile": "24px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["\"Source Serif 4\""],
+                        "nav-link": ["\"Source Serif 4\""],
+                        "headline-sm": ["Playfair Display"],
+                        "label-caps": ["\"Source Serif 4\""],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["\"Source Serif 4\""]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "nav-link": ["14px", { "lineHeight": "20px", "letterSpacing": "0.15em", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.2em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "headline-md": ["42px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "display-lg": ["84px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-edge-margin-mobile md:px-edge-margin-desktop z-50 transition-all duration-1000 ease-in-out bg-transparent py-8">
+<div class="flex items-center reveal entrance-1">
+<img alt="CM Monogram" class="h-[50px] w-auto object-contain md:h-[56px] animate-breath" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDkbiByKLB82fPcNbAZggdeTJXH6bQAQcwJ7wHDS4tji93JlpXVdYV7fEeTb7-4iScK93tPWafe54r5oMdUnQOGYmjbbylw2gsaeex_USkvp8aa41Q9E9LOiqeF80QP8r6SpWtEsdNN0UV4_LzWn1S5AfRylppPvw4DXCGjGRzkWfXweepHBOP8S4BOSVUun1rNn-qlrc1R3cA0_vYyiysWIWY-3fvOsuPYIFaQsam_E1vhqVtzkUg65MZoAUQyb6yTE73QAKQ4GM"/>
+<span class="text-headline-sm text-primary ml-4 md:text-headline-md font-display-lg">Conver Media</span>
+</div>
+<nav class="hidden md:flex space-x-12 reveal entrance-1">
+<a class="font-nav-link text-nav-link uppercase tracking-[0.2em] text-secondary opacity-50 hover:opacity-100 transition-all duration-700 ease-in-out" href="#philosophy">About</a>
+<a class="font-nav-link text-nav-link uppercase tracking-[0.2em] text-secondary opacity-50 hover:opacity-100 transition-all duration-700 ease-in-out" href="#contact">Contact</a>
+</nav>
+<div class="md:hidden font-nav-link text-nav-link uppercase tracking-widest text-primary reveal entrance-1">Menu</div>
+</header>
+<main>
+<!-- Section 1: Hero -->
+<section class="relative min-h-screen flex flex-col items-center justify-center text-center px-edge-margin-mobile md:px-edge-margin-desktop bg-[#040603]" id="hero">
+<div class="max-w-[1000px]">
+<h1 class="font-display-lg-mobile md:text-display-lg font-display-lg text-[#F5EEE0] italic mb-8 reveal entrance-2">
+                A feeling, once felt, is rarely translated.
+            </h1>
+<p class="font-body-lg text-body-lg text-[#F5EEE0] max-w-2xl mx-auto opacity-80 leading-relaxed reveal entrance-3">
+                We design how your brand is perceived online — so it matches what it already is in person.
+            </p>
+</div>
+<!-- Bottom Anchor indicator -->
+<div class="absolute bottom-12 reveal entrance-3">
+<div class="w-px h-16 bg-primary opacity-20"></div>
+</div>
+</section>
+<!-- Section 2: Philosophy -->
+<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#040603]" id="philosophy">
+<div class="max-w-[650px] reveal">
+<p class="font-label-caps text-label-caps uppercase text-secondary mb-12 tracking-[0.3em]">Philosophy</p>
+<div class="space-y-8">
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">Perception comes before everything.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">A luxury guest does not simply choose a property. They choose what they already believe that property to be — long before they arrive.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">That belief is perception. And perception is never accidental. It is either shaped, deliberately, or it is left to chance.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">We do not offer services.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">If a brand exists online, its perception is already being formed. Every place your brand is seen — we make sure it says one thing, not five.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">Because desire cannot exist on its own. You cannot genuinely desire something until you have first perceived it.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">So we build the perception. And we hold it — continuously, the same way a luxury standard is never set once, but maintained every single day it stands.</p>
+<p class="font-body-lg text-body-lg leading-[1.8] text-on-background italic">This is why we call it Crafting Desire.</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Statement -->
+<section class="min-h-screen flex items-center justify-center px-edge-margin-mobile md:px-edge-margin-desktop bg-[#040603]">
+<div class="max-w-4xl text-center reveal">
+<h2 class="font-headline-md text-headline-md md:text-display-lg text-primary leading-tight">
+                For brands where excellence was never the question — only visibility was.
+            </h2>
+</div>
+</section>
+<!-- Section 4: Approach -->
+<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#E8E0D0] text-[#071009]">
+<div class="max-w-[650px] mx-auto text-center md:text-left reveal">
+<p class="font-label-caps text-label-caps uppercase text-[#071009] mb-12 tracking-[0.3em] opacity-60">Approach</p>
+<div class="space-y-8">
+<p class="font-body-lg text-body-lg leading-[1.7] italic">We do not begin with a brief.</p>
+<p class="font-body-lg text-body-lg leading-[1.7] italic">We begin inside the property — feeling it ourselves, the way a guest would, before a single strategy exists.</p>
+<p class="font-body-lg text-body-lg leading-[1.7] italic">What is felt there becomes the standard everything else is measured against.</p>
+</div>
+</div>
+</section>
+<!-- Section 5: Contact -->
+<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#040603] flex flex-col items-center justify-center text-center" id="contact">
+<div class="reveal flex flex-col items-center">
+<p class="font-label-caps text-label-caps uppercase text-secondary mb-12 tracking-[0.3em]">INQUIRIES</p>
+<p class="font-body-md text-body-md text-secondary opacity-60 max-w-md mx-auto mb-4">You've built something exceptional.</p>
+<p class="font-body-md text-body-md text-secondary opacity-60 max-w-md mx-auto mb-12">Let's make sure it's perceived that way.</p>
+<a class="group relative py-4 inline-block btn-glow transition-all duration-700 ease-in-out" href="mailto:studio@convermedia.luxury">
+<span class="font-headline-sm text-headline-sm text-primary transition-colors duration-500">Request a Meeting</span>
+<span class="absolute bottom-0 left-0 w-full h-px bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></span>
+</a>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="flex flex-col md:flex-row justify-between items-center px-edge-margin-mobile md:px-edge-margin-desktop py-gutter w-full bg-[#040603] border-t border-primary border-opacity-10">
+<div class="font-headline-sm text-headline-sm text-primary mb-4 md:mb-0">Conver Media</div>
+<div class="flex flex-col md:flex-row items-center gap-8">
+<p class="font-label-caps text-label-caps text-secondary opacity-40">© Conver Media. All rights reserved.</p>
+</div>
+</footer>
+<script>
+    // Scroll Reveal Implementation with IntersectionObserver
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Handle Page Load Entrance (in case observer triggers late)
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.entrance-1, .entrance-2, .entrance-3').forEach(el => {
+            el.classList.add('active');
+        });
+    });
+
+    // Navigation Shrink and Background on Scroll
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('bg-background/90', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
+            header.classList.remove('py-8');
+        } else {
+            header.classList.remove('bg-background/90', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
+            header.classList.add('py-8');
+        }
+    });
+
+    // Micro-interaction for primary button and nav links
+    const links = document.querySelectorAll('nav a, .btn-glow');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            document.body.style.cursor = 'default';
+        });
+    });
+</script>
+</body></html>
