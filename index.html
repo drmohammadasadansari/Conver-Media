@@ -1,271 +1,457 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conver Media — Crafting Desire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#071009;
+    --ivory:#F5EEE0;
+    --pale:#E8E0D0;
+    --violet:#1E1435;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--forest);
+    color:var(--ivory);
+    font-family:'EB Garamond',serif;
+    overflow-x:hidden;
+  }
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:2;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  body.has-cursor, body.has-cursor a, body.has-cursor button{cursor:none;}
+  #cursorDot{
+    position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;
+    background:var(--ivory);pointer-events:none;z-index:300;
+    transform:translate(-50%,-50%);transition:opacity .3s;
+  }
+  #cursorRing{
+    position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(245,238,224,0.45);pointer-events:none;z-index:300;
+    transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,opacity .3s;
+  }
+  #cursorRing.grow{width:64px;height:64px;border-color:rgba(245,238,224,0.75);}
+  #loader{
+    position:fixed;inset:0;z-index:400;background:var(--forest);
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .8s ease;
+  }
+  #loader img{width:80px;height:auto;animation:breathe 6s ease-in-out infinite;}
+  #loader.hide{opacity:0;pointer-events:none;}
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:10;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:28px 48px;
+    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    mix-blend-mode:difference;
+  }
+  nav a{color:var(--ivory);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s;}
+  nav a:hover{border-color:var(--pale);}
+  section{position:relative;padding:160px 48px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-line{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal-line.in{opacity:1;transform:translateY(0);}
 
-<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{try{
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-error": "#690005",
-                        "surface-container": "#18221a",
-                        "inverse-on-surface": "#29332a",
-                        "on-primary-fixed-variant": "#4a473d",
-                        "on-surface-variant": "#cbc6bc",
-                        "on-secondary-fixed-variant": "#4b463b",
-                        "primary-fixed-dim": "#ccc6b9",
-                        "tertiary-fixed-dim": "#cec0eb",
-                        "error-container": "#93000a",
-                        "on-secondary": "#343025",
-                        "surface": "#071009",
-                        "surface-container-lowest": "#050806",
-                        "on-tertiary-container": "#6a5e84",
-                        "surface-dim": "#071009",
-                        "on-secondary-container": "#bfb8a9",
-                        "on-primary-container": "#686459",
-                        "surface-container-high": "#232c24",
-                        "surface-variant": "#2d372f",
-                        "on-primary-fixed": "#1e1b13",
-                        "primary-container": "#e9e2d4",
-                        "secondary-container": "#4d493d",
-                        "tertiary": "#ffffff",
-                        "tertiary-fixed": "#e9ddff",
-                        "primary-fixed": "#e9e2d4",
-                        "on-error-container": "#ffdad6",
-                        "surface-container-low": "#141e16",
-                        "surface-container-highest": "#2d372f",
-                        "outline": "#959087",
-                        "secondary-fixed-dim": "#cdc6b6",
-                        "error": "#ffb4ab",
-                        "secondary-fixed": "#eae2d2",
-                        "on-secondary-fixed": "#1f1b12",
-                        "surface-tint": "#ccc6b9",
-                        "inverse-primary": "#625e53",
-                        "on-tertiary": "#352b4d",
-                        "on-surface": "#dae6d9",
-                        "inverse-surface": "#dae6d9",
-                        "on-tertiary-fixed": "#201637",
-                        "on-background": "#dae6d9",
-                        "on-primary": "#333027",
-                        "background": "#071009",
-                        "primary": "#ffffff",
-                        "secondary": "#cdc6b6",
-                        "outline-variant": "#4a473f",
-                        "tertiary-container": "#e9ddff",
-                        "surface-bright": "#323c33",
-                        "on-tertiary-fixed-variant": "#4c4165"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "edge-margin-desktop": "80px",
-                        "gutter": "24px",
-                        "stack-gap": "32px",
-                        "grid-columns": "12",
-                        "section-gap": "160px",
-                        "edge-margin-mobile": "24px",
-                        "container-max": "1440px"
-                    },
-                    "fontFamily": {
-                        "body-md": ["\"Source Serif 4\""],
-                        "nav-link": ["\"Source Serif 4\""],
-                        "headline-sm": ["Playfair Display"],
-                        "label-caps": ["\"Source Serif 4\""],
-                        "display-lg-mobile": ["Playfair Display"],
-                        "headline-md": ["Playfair Display"],
-                        "display-lg": ["Playfair Display"],
-                        "body-lg": ["\"Source Serif 4\""]
-                    },
-                    "fontSize": {
-                        "body-md": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }],
-                        "nav-link": ["14px", { "lineHeight": "20px", "letterSpacing": "0.15em", "fontWeight": "400" }],
-                        "headline-sm": ["24px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400" }],
-                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.2em", "fontWeight": "600" }],
-                        "display-lg-mobile": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
-                        "headline-md": ["42px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
-                        "display-lg": ["84px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
-                        "body-lg": ["20px", { "lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "400" }]
-                    }
-                },
-            },
-        }
-    }catch(_e){}}catch(_e){}</script></head><body class="bg-background">
-<!-- TopNavBar -->
-<header class="fixed top-0 w-full flex justify-between items-center px-edge-margin-mobile md:px-edge-margin-desktop z-50 transition-all duration-1000 ease-in-out bg-transparent py-8">
-<div class="flex items-center reveal entrance-1">
-<img alt="CM Monogram" class="h-[50px] w-auto object-contain md:h-[56px] animate-breath" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDkbiByKLB82fPcNbAZggdeTJXH6bQAQcwJ7wHDS4tji93JlpXVdYV7fEeTb7-4iScK93tPWafe54r5oMdUnQOGYmjbbylw2gsaeex_USkvp8aa41Q9E9LOiqeF80QP8r6SpWtEsdNN0UV4_LzWn1S5AfRylppPvw4DXCGjGRzkWfXweepHBOP8S4BOSVUun1rNn-qlrc1R3cA0_vYyiysWIWY-3fvOsuPYIFaQsam_E1vhqVtzkUg65MZoAUQyb6yTE73QAKQ4GM"/>
-<span class="text-headline-sm text-primary ml-4 md:text-headline-md font-display-lg">Conver Media</span>
-</div>
-<nav class="hidden md:flex space-x-12 reveal entrance-1">
-<a class="font-nav-link text-nav-link uppercase tracking-[0.2em] text-secondary opacity-50 hover:opacity-100 transition-all duration-700 ease-in-out" href="#philosophy">About</a>
-<a class="font-nav-link text-nav-link uppercase tracking-[0.2em] text-secondary opacity-50 hover:opacity-100 transition-all duration-700 ease-in-out" href="#contact">Contact</a>
+  /* HERO */
+  #hero{align-items:center;text-align:center;position:relative;}
+  .monogram{
+    display:block;margin:0 auto 36px;
+    animation:breathe 6s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:0.88;filter:drop-shadow(0 0 0 rgba(245,238,224,0));}
+    50%{opacity:1;filter:drop-shadow(0 0 18px rgba(245,238,224,0.22));}
+  }
+  .eyebrow{font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:var(--pale);opacity:0.6;margin-bottom:22px;}
+  h1.hero-headline{
+    font-family:'Bodoni Moda',serif;font-weight:400;
+    font-size:clamp(40px,7vw,88px);line-height:1.08;max-width:900px;margin:0 auto 32px;
+    clip-path:inset(0 100% 0 0);transition:clip-path 1.3s cubic-bezier(.65,0,.15,1) .3s;
+  }
+  h1.hero-headline.in{clip-path:inset(0 0 0 0);}
+  .hero-sub{max-width:480px;margin:0 auto;font-size:18px;line-height:1.7;color:var(--pale);font-style:italic;}
+  .scroll-cue{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--pale);opacity:0.5;display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .scroll-cue::after{content:"";width:1px;height:36px;background:var(--pale);animation:pulse-line 2.4s ease-in-out infinite;}
+  @keyframes pulse-line{0%,100%{opacity:0.2;}50%{opacity:0.8;}}
+
+  /* PHILOSOPHY — offset right, wide left margin */
+  #philosophy{padding-left:12vw;padding-right:8vw;}
+  .philosophy-text{
+    max-width:640px;margin-left:auto;
+    font-size:clamp(19px,2.1vw,26px);line-height:1.85;color:var(--ivory);
+  }
+
+  /* STATEMENT — full screen push-in */
+  #statement{
+    align-items:center;text-align:center;min-height:100vh;position:relative;
+    background:var(--forest);overflow:hidden;
+  }
+  #statement::before{
+    content:"";position:absolute;inset:-10%;z-index:0;
+    background:radial-gradient(ellipse at center, #8A6B3C 0%, rgba(138,107,60,0.18) 38%, transparent 70%);
+    opacity:0.35;pointer-events:none;
+  }
+  #statement > *{position:relative;z-index:1;}
+  .statement-eyebrow{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--pale);opacity:0.45;margin-bottom:28px;}
+  .statement-text{
+    font-family:'Bodoni Moda',serif;font-weight:400;color:var(--ivory);
+    font-size:clamp(30px,5.4vw,64px);line-height:1.22;max-width:1000px;margin:0 auto;
+    transform:scale(0.94);opacity:0;transition:transform 1.4s cubic-bezier(.19,1,.22,1),opacity 1.4s ease;
+  }
+  .statement-text.in{transform:scale(1);opacity:1;}
+  .statement-text em{font-style:italic;color:var(--ivory);}
+
+  /* APPROACH — light panel break, asymmetric two column */
+  #approach{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;align-items:start;
+    padding-top:180px;padding-bottom:180px;
+    background:var(--pale);color:#1C2A20;
+  }
+  .approach-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#5C5A4E;margin-bottom:18px;}
+  .approach-headline{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.2;color:#141F18;}
+  .approach-body p{font-size:18px;font-style:italic;line-height:1.85;color:#3A382E;margin-bottom:26px;max-width:460px;}
+
+  /* AUDIT — staggered vertical offsets */
+  #audit{padding-top:160px;padding-bottom:160px;}
+  .audit-heading{font-family:'Bodoni Moda',serif;font-size:clamp(24px,3vw,36px);margin-bottom:80px;max-width:560px;}
+  .audit-item{
+    display:grid;grid-template-columns:60px 1fr;gap:32px;
+    max-width:680px;padding:34px 0;border-top:1px solid rgba(245,238,224,0.12);
+  }
+  .audit-item:nth-child(2){margin-left:6vw;}
+  .audit-item:nth-child(3){margin-left:12vw;}
+  .audit-item:nth-child(4){margin-left:6vw;}
+  .audit-num{font-family:'Bodoni Moda',serif;font-style:italic;font-size:14px;color:var(--pale);opacity:0.5;}
+  .audit-title{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--pale);opacity:0.6;margin-bottom:10px;}
+  .audit-desc{font-size:18px;line-height:1.7;}
+
+  /* FOUNDER — asymmetric split */
+  #founder{display:grid;grid-template-columns:0.8fr 1.2fr;gap:70px;align-items:center;}
+  .founder-mark{
+    aspect-ratio:3/4;border:1px solid rgba(245,238,224,0.18);
+    display:block;overflow:hidden;
+  }
+  .founder-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--pale);opacity:0.55;margin-bottom:16px;}
+  .founder-name{font-family:'Bodoni Moda',serif;font-size:clamp(30px,4vw,48px);line-height:1.15;margin-bottom:20px;}
+  .founder-line{font-size:17px;line-height:1.7;color:var(--pale);max-width:420px;}
+
+  /* CONTACT */
+  #contact{display:block;}
+  .modal-overlay{
+    position:fixed;inset:0;z-index:100;background:rgba(7,16,9,0.92);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;pointer-events:none;transition:opacity .4s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal-box{
+    background:var(--forest);border:1px solid rgba(245,238,224,0.18);
+    max-width:520px;width:100%;padding:48px 42px;position:relative;
+    transform:translateY(14px);transition:transform .4s cubic-bezier(.19,1,.22,1);
+    max-height:88vh;overflow-y:auto;
+  }
+  .modal-overlay.open .modal-box{transform:translateY(0);}
+  .modal-close{
+    position:absolute;top:18px;right:20px;background:none;border:none;
+    color:var(--pale);font-size:26px;cursor:pointer;line-height:1;
+  }
+  .modal-close:hover{color:var(--ivory);}
+  .modal-title{font-family:'Bodoni Moda',serif;font-size:22px;font-weight:400;margin-bottom:28px;}
+  .contact-eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--pale);opacity:0.55;margin-bottom:20px;}
+  .contact-headline{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1.2;}
+  form{display:flex;flex-direction:column;gap:0;}
+  .field{border-bottom:1px solid rgba(245,238,224,0.22);padding:16px 0;transition:border-color .3s;}
+  .field:focus-within{border-color:#9b7fc9;}
+  .field label{display:block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--pale);opacity:0.55;margin-bottom:6px;}
+  .field input,.field textarea{
+    width:100%;background:transparent;border:none;outline:none;
+    font-family:'EB Garamond',serif;font-size:17px;color:var(--ivory);
+    resize:none;
+  }
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .cta-btn{
+    margin-top:34px;background:none;border:none;cursor:pointer;
+    font-family:'EB Garamond',serif;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ivory);padding-bottom:6px;position:relative;width:fit-content;
+    transition:transform .2s ease,letter-spacing .4s;
+  }
+  .cta-btn::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--ivory);
+    transform:scaleX(1);transform-origin:left;
+  }
+  .cta-btn .underline-grow{
+    position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--pale);
+    transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.19,1,.22,1);
+  }
+  .cta-btn:hover .underline-grow{transform:scaleX(1);}
+  .cta-btn:hover{letter-spacing:0.2em;transition:letter-spacing .4s;}
+
+  footer{
+    padding:60px 48px 40px;display:flex;justify-content:space-between;align-items:flex-end;
+    border-top:1px solid rgba(245,238,224,0.1);font-size:11px;color:var(--pale);opacity:0.6;
+  }
+  footer a{color:var(--pale);text-decoration:none;margin-left:18px;}
+  footer a:hover{color:var(--ivory);}
+
+  @media (max-width:800px){
+    section{padding:100px 26px;}
+    #approach,#founder,#contact{grid-template-columns:1fr;gap:40px;}
+    #philosophy{padding-left:6vw;padding-right:6vw;}
+    .philosophy-text{margin-left:0;}
+    .audit-item:nth-child(2),.audit-item:nth-child(3),.audit-item:nth-child(4){margin-left:0;}
+    .row-2{grid-template-columns:1fr;}
+    footer{flex-direction:column;align-items:flex-start;gap:14px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.reveal-line,.statement-text,.monogram{transition:none;animation:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader"><img src="monogram.jpg" alt=""></div>
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+<div class="grain"></div>
+
+<nav>
+  <span>Conver Media</span>
+  <a href="#" class="open-modal">Request a Brand Conversation</a>
 </nav>
-<div class="md:hidden font-nav-link text-nav-link uppercase tracking-widest text-primary reveal entrance-1">Menu</div>
-</header>
-<main>
-<!-- Section 1: Hero -->
-<section class="relative min-h-screen flex flex-col items-center justify-center text-center px-edge-margin-mobile md:px-edge-margin-desktop bg-[#071009]" id="hero">
-<div class="max-w-[1000px]">
-<h1 class="font-display-lg-mobile md:text-display-lg font-display-lg text-[#F5EEE0] italic mb-8 reveal entrance-2">
-                A feeling, once felt, is rarely translated.
-            </h1>
-<p class="font-body-lg text-body-lg text-[#F5EEE0] max-w-2xl mx-auto opacity-80 leading-relaxed reveal entrance-3">
-                We design how your brand is perceived online — so it matches what it already is in person.
-            </p>
-</div>
-<!-- Bottom Anchor indicator -->
-<div class="absolute bottom-12 reveal entrance-3">
-<div class="w-px h-16 bg-primary opacity-20"></div>
-</div>
+
+<section id="hero">
+  <img src="monogram.jpg" class="monogram" alt="Conver Media monogram" style="width:min(180px,32vw);height:auto;">
+  <h1 class="hero-headline reveal">A feeling, once felt,<br>is rarely translated.</h1>
+  <p class="hero-sub reveal">We design how your brand is perceived online — so it matches what it already is in person.</p>
+  <div class="scroll-cue">Scroll</div>
 </section>
-<!-- Section 2: Philosophy -->
-<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#071009]" id="philosophy">
-<div class="max-w-[650px] reveal">
-<p class="font-label-caps text-label-caps uppercase text-secondary mb-12 tracking-[0.3em]">Philosophy</p>
-<div class="space-y-8">
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">Perception comes before everything.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">A luxury guest does not simply choose a property. They choose what they already believe that property to be — long before they arrive.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">That belief is perception. And perception is never accidental. It is either shaped, deliberately, or it is left to chance.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">We do not offer services.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">If a brand exists online, its perception is already being formed. Every place your brand is seen — we make sure it says one thing, not five.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">Because desire cannot exist on its own. You cannot genuinely desire something until you have first perceived it.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background">So we build the perception. And we hold it — continuously, the same way a luxury standard is never set once, but maintained every single day it stands.</p>
-<p class="font-body-lg text-body-lg leading-[1.8] text-on-background italic">This is why we call it Crafting Desire.</p>
-</div>
-</div>
+
+<section id="philosophy">
+  <div style="max-width:640px;margin-left:auto;">
+    <div class="approach-label reveal" style="margin-bottom:22px;">Philosophy</div>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">Perception comes before everything.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">A luxury guest does not simply choose a property. They choose what they already believe that property to be — long before they arrive.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">That belief is perception. And perception is never accidental. It is either shaped, deliberately, or it is left to chance.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">We do not offer services.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">If a brand exists online, its perception is already being formed.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">Every place your brand is seen — we make sure it says one thing, not five.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">Because desire cannot exist on its own. You cannot genuinely desire something until you have first perceived it.</p>
+    <p class="philosophy-text reveal" style="margin-bottom:28px;">So we build the perception. And we hold it — continuously, the same way a luxury standard is never set once, but maintained every single day it stands.</p>
+    <p class="philosophy-text reveal">This is why we call it Crafting Desire.</p>
+  </div>
 </section>
-<!-- Section 3: Statement -->
-<section class="min-h-screen flex items-center justify-center px-edge-margin-mobile md:px-edge-margin-desktop bg-[#071009]">
-<div class="max-w-4xl text-center reveal">
-<h2 class="font-headline-md text-headline-md md:text-display-lg text-primary leading-tight">
-                For brands where excellence was never the question — only visibility was.
-            </h2>
-</div>
+
+<section id="statement">
+  <div class="statement-eyebrow reveal">The question was never quality</div>
+  <p class="statement-text">For brands where excellence was never the question — <em>only visibility was.</em></p>
 </section>
-<!-- Section 4: Approach -->
-<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#E8E0D0] text-[#071009]">
-<div class="max-w-[650px] mx-auto text-center md:text-left reveal">
-<p class="font-label-caps text-label-caps uppercase text-[#071009] mb-12 tracking-[0.3em] opacity-60">Approach</p>
-<div class="space-y-8">
-<p class="font-body-lg text-body-lg leading-[1.7] italic">We do not begin with a brief.</p>
-<p class="font-body-lg text-body-lg leading-[1.7] italic">We begin inside the property — feeling it ourselves, the way a guest would, before a single strategy exists.</p>
-<p class="font-body-lg text-body-lg leading-[1.7] italic">What is felt there becomes the standard everything else is measured against.</p>
-</div>
-</div>
+
+<section id="approach">
+  <div>
+    <div class="approach-label reveal">Our approach</div>
+    <h2 class="approach-headline reveal">We begin inside<br>the property itself.</h2>
+  </div>
+  <div class="approach-body">
+    <p class="reveal">Before a single strategy exists — we are there. Feeling it. Experiencing it the way a guest would.</p>
+    <p class="reveal">Then we study how that same property exists online — every place a guest encounters it before arriving.</p>
+    <p class="reveal">What is felt in person, and what is seen online — the gap between the two is where we begin.</p>
+  </div>
 </section>
-<!-- Section 5: Contact -->
-<section class="py-section-gap px-edge-margin-mobile md:px-edge-margin-desktop bg-[#071009] flex flex-col items-center justify-center text-center" id="contact">
-<div class="reveal flex flex-col items-center w-full max-w-2xl">
-<p class="font-label-caps text-label-caps uppercase text-[#F5EEE0] mb-12 tracking-[0.3em]">INQUIRIES</p>
-<p class="font-body-md text-body-md text-[#F5EEE0] opacity-80 max-w-md mx-auto mb-4">You've built something exceptional.</p>
-<p class="font-body-md text-body-md text-[#F5EEE0] opacity-80 max-w-md mx-auto mb-12">Let's make sure it's perceived that way.</p>
-<form action="https://formspree.io/f/mvzjerrk" class="w-full flex flex-col items-center" id="inquiryForm" method="POST">
-<div class="form-fields-container w-full hidden opacity-0 max-h-0 overflow-hidden transition-all duration-700 ease-in-out" id="formFields">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 pb-8">
-<div class="flex flex-col">
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2" name="name" placeholder="Name" required="" type="text"/>
-</div>
-<div class="flex flex-col">
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2" name="brand_property" placeholder="Brand / Property" required="" type="text"/>
-</div>
-<div class="flex flex-col">
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2" name="role" placeholder="Role" required="" type="text"/>
-</div>
-<div class="flex flex-col">
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2" name="email" placeholder="Email" required="" type="email"/>
-</div>
-<div class="flex flex-col md:col-span-2">
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2" name="website" placeholder="Website" type="url"/>
-</div>
-<div class="flex flex-col md:col-span-2">
-<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-[#F5EEE0] text-[#F5EEE0] placeholder:text-[#F5EEE0]/50 focus:ring-0 focus:border-[#F5EEE0] font-body-md py-2 resize-none" name="message" placeholder="Message" rows="4"></textarea>
-</div>
-</div>
-</div>
-<div class="pt-8">
-<button class="group relative py-4 inline-block btn-glow transition-all duration-700 ease-in-out bg-transparent" id="formSubmitBtn" type="submit">
-<span class="font-headline-sm text-headline-sm text-[#F5EEE0] transition-colors duration-500" id="btnText">Request a Meeting</span>
-<span class="absolute bottom-0 left-0 w-full h-px bg-[#F5EEE0] scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></span>
-</button>
-</div>
-</form>
-</div>
+
+<section id="audit">
+  <h2 class="audit-heading reveal">What we see, before we begin.</h2>
+  <p class="reveal" style="max-width:560px;font-size:17px;line-height:1.8;color:var(--pale);margin-top:-56px;margin-bottom:80px;">Every engagement starts with one question — is what your property delivers in person, the same as what the world sees online? To answer it, we look at four things.</p>
+
+  <div class="audit-item reveal">
+    <div class="audit-num">01</div>
+    <div>
+      <div class="audit-title">What the property actually is</div>
+      <div class="audit-desc">We visit. We feel it. We experience it the way a guest would, before we open a single app or screen.</div>
+    </div>
+  </div>
+
+  <div class="audit-item reveal">
+    <div class="audit-num">02</div>
+    <div>
+      <div class="audit-title">What it looks like online</div>
+      <div class="audit-desc">Every place a guest encounters your brand before arriving — Instagram, Google, reviews, OTA profiles, website — we study all of it.</div>
+    </div>
+  </div>
+
+  <div class="audit-item reveal">
+    <div class="audit-num">03</div>
+    <div>
+      <div class="audit-title">The gap between the two</div>
+      <div class="audit-desc">Where what's felt in person is lost online. This is where properties are quietly losing the right customers.</div>
+    </div>
+  </div>
+
+  <div class="audit-item reveal">
+    <div class="audit-num">04</div>
+    <div>
+      <div class="audit-title">What that gap is costing</div>
+      <div class="audit-desc">Not in theory. In real terms — the wrong customers, the price negotiations, the empty tables on nights that should be full.</div>
+    </div>
+  </div>
+
+  <p class="reveal" style="max-width:560px;font-size:17px;line-height:1.8;color:var(--pale);margin-top:50px;">This is what we find. This is where we begin.</p>
 </section>
-</main>
-<!-- Simple Footer -->
-<footer class="flex flex-col md:flex-row justify-between items-center px-edge-margin-mobile md:px-edge-margin-desktop py-gutter w-full bg-[#071009] border-t border-primary border-opacity-10">
-<div class="font-headline-sm text-headline-sm text-primary mb-4 md:mb-0">Conver Media</div>
-<div class="flex flex-col md:flex-row items-center gap-8">
-<p class="font-label-caps text-label-caps text-secondary opacity-40">© Conver Media. All rights reserved.</p>
+
+<section id="founder">
+  <img src="founder-photo-original.png" class="founder-mark reveal" alt="Mohammad Asad Ansari, founder of Conver Media" style="width:100%;height:100%;object-fit:cover;">
+  <div class="reveal">
+    <div class="founder-label">Founder</div>
+    <h2 class="founder-name">Mohammad<br>Asad Ansari</h2>
+    <p class="founder-line">Conver Media exists because the finest properties in India deserve marketing that matches what they have built.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div>
+    <h2 class="contact-headline reveal">You've built something exceptional.<br>Let's make sure it's perceived that way.</h2>
+    <button type="button" class="cta-btn reveal open-modal" style="margin-top:36px;">
+      Request a Brand Conversation
+      <span class="underline-grow"></span>
+    </button>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <h3 class="modal-title">Request a Brand Conversation</h3>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="property">Property name</label>
+          <input type="text" id="property" name="property" required>
+        </div>
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="role">Your role</label>
+        <input type="text" id="role" name="role" required>
+      </div>
+      <div class="field">
+        <label for="goal">What are you looking to achieve?</label>
+        <textarea id="goal" name="goal" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="cta-btn" style="margin-top:26px;">
+        Send request
+        <span class="underline-grow"></span>
+      </button>
+    </form>
+  </div>
 </div>
+
+<footer>
+  <div>Conver Media — Crafting Desire.<br>© 2026 Conver Media. All rights reserved.</div>
+  <div>
+    <a href="mailto:hello@convermedia.in" id="emailLink">hello@convermedia.in</a>
+    <a href="https://in.linkedin.com/company/convermediamarketing" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/convermediamarketing/" target="_blank" rel="noopener">Instagram</a>
+  </div>
 </footer>
+
 <script>
-    // Scroll Reveal Implementation with IntersectionObserver
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((entry,i)=>{
+      if(entry.isIntersecting){
+        setTimeout(()=>entry.target.classList.add('in'), i*90);
+        io.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, observerOptions);
+  const statement = document.querySelector('.statement-text');
+  const io2 = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        statement.classList.add('in');
+      } else if(entry.boundingClientRect.top > 0){
+        statement.classList.remove('in');
+      }
+    });
+  },{threshold:0.5});
+  io2.observe(statement);
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  const overlay = document.getElementById('modalOverlay');
+  const closeBtn = document.getElementById('modalClose');
+  document.querySelectorAll('.open-modal').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      overlay.classList.add('open');
+    });
+  });
+  function closeModal(){ overlay.classList.remove('open'); }
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
 
-    // Handle Page Load Entrance (in case observer triggers late)
-    window.addEventListener('load', () => {
-        document.querySelectorAll('.entrance-1, .entrance-2, .entrance-3').forEach(el => {
-            el.classList.add('active');
-        });
+  const emailLink = document.getElementById('emailLink');
+  emailLink.addEventListener('click', (e)=>{
+    navigator.clipboard.writeText('hello@convermedia.in').then(()=>{
+      const original = emailLink.textContent;
+      emailLink.textContent = 'Copied to clipboard';
+      setTimeout(()=>{ emailLink.textContent = original; }, 1800);
+    }).catch(()=>{});
+  });
+
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      document.getElementById('loader').classList.add('hide');
+      document.querySelector('.hero-headline').classList.add('in');
+    }, 900);
+  });
+
+  if(window.matchMedia('(pointer: fine)').matches){
+    document.body.classList.add('has-cursor');
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    window.addEventListener('mousemove', (e)=>{
+      mx=e.clientX; my=e.clientY;
+      dot.style.left=mx+'px'; dot.style.top=my+'px';
+    });
+    function loop(){
+      rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      requestAnimationFrame(loop);
+    }
+    loop();
+    document.querySelectorAll('a,button').forEach(el=>{
+      el.addEventListener('mouseenter', ()=>ring.classList.add('grow'));
+      el.addEventListener('mouseleave', ()=>ring.classList.remove('grow'));
     });
 
-    // Navigation Shrink and Background on Scroll
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('bg-background/90', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
-            header.classList.remove('py-8');
-        } else {
-            header.classList.remove('bg-background/90', 'backdrop-blur-md', 'py-4', 'shadow-2xl');
-            header.classList.add('py-8');
-        }
+    document.querySelectorAll('.cta-btn').forEach(btn=>{
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const relX = e.clientX - r.left - r.width/2;
+        const relY = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate(${relX*0.25}px, ${relY*0.35}px)`;
+      });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.transform='translate(0,0)'; });
     });
+  }
+</script>
 
-    // Micro-interaction for primary button and nav links
-    const links = document.querySelectorAll('nav a, .btn-glow');
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            document.body.style.cursor = 'default';
-        });
-    });
-
-    // Form progressive reveal handler
-    const form = document.getElementById('inquiryForm');
-    const formFields = document.getElementById('formFields');
-    const submitBtn = document.getElementById('formSubmitBtn');
-    const btnText = document.getElementById('btnText');
-    let isFormRevealed = false;
-
-    submitBtn.addEventListener('click', function(e) {
-        if (!isFormRevealed) {
-            e.preventDefault(); // Stop initial submission
-            formFields.classList.remove('hidden');
-            
-            // Allow display: block to apply before changing max-height and opacity for transition
-            setTimeout(() => {
-                formFields.classList.remove('opacity-0', 'max-h-0');
-                formFields.classList.add('opacity-100', 'max-h-[1000px]');
-            }, 10);
-            
-            btnText.textContent = 'Submit';
-            isFormRevealed = true;
-        }
-    });
-</script></body></html>
+</body>
+</html>
