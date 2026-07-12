@@ -1,0 +1,22 @@
+{
+  "name": "Conver Media",
+  "short_name": "Conver Media",
+  "description": "Luxury hospitality marketing and online perception strategy.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#071009",
+  "theme_color": "#071009",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
