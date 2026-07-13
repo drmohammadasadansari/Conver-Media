@@ -1496,7 +1496,17 @@
       .contact-promise > span:first-child,
       .contact-promise-second { text-align:center; }
       .contact-action { width:100%; }
-    }
+    }.footer-copyright {
+  margin-top: 18px;
+  color: #F5EEE0;
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  line-height: 1.6;
+  opacity: 0.58;
+  visibility: visible;
+  transform: none;
+  filter: none;
+}
 </style>
 </head>
 <body>
@@ -1681,7 +1691,7 @@
           <a href="https://www.linkedin.com/company/convermediamarketing/?originalSubdomain=in" target="_blank" rel="noopener" aria-label="Conver Media on LinkedIn">LinkedIn</a><span>·</span>
           <a href="https://www.instagram.com/convermediamarketing/" target="_blank" rel="noopener" aria-label="Conver Media on Instagram">Instagram</a>
         </div>
-        <div>© 2026 Conver Media. All rights reserved.</div>
+        <div class="footer-copyright">© 2026 Conver Media. All rights reserved.</div>
       </footer>
     </section>
   </main>
@@ -1750,7 +1760,7 @@
     // Every meaningful text element receives a scroll-led entrance.
     const textSelector = [
       'main h2', 'main h3', 'main p', 'main .eyebrow',
-      '.hero-sub', '.footer div', '.footer a',
+      '.hero-sub', '.footer > div:first-child, .footer-links', '.footer a',
       '.nav-links a', '.nav-cta', '.contact-trigger'
     ].join(',');
 
